@@ -10,20 +10,24 @@ namespace Elevator.Classes.Concretes
     {
         private readonly ElevatorType _elevator;
         private int _currentFloor = (int)Floors.Ground;
-        private bool _authorizedPersonnel = false;
-        
+        private string _speed = ElevatorSpeeds.Normal.ToString();
+        private double _weightCapacity = 120.6;
+        private double _weightLimit = 100.5;
+        private int _numberOfElevators = (int)Elevators.Passenger;
+        private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
         public Passenger(ElevatorType elevator, string id) : base(type: "Passenger", id)
         {
             _elevator = elevator;
         }
-        public override int NumberOfElevators { get => (int)Elevators.Passenger; }
-        public override double WeightCapacity { get => 120.6; }
-        public override double WeightLimit { get => 100.5; }
-        public override bool AuthorizedPersonnel { get => _authorizedPersonnel; }
-        public override string Speed { get => speed; init => speed = _elevator.Speed ?? ElevatorSpeeds.Normal.ToString(); }
+        public override int NumberOfElevators { get => _numberOfElevators; init => _numberOfElevators = value;}
+        public override double WeightCapacity { get => _weightCapacity; init => _weightCapacity = value; }
+        public override double WeightLimit { get => _weightLimit; init => _weightCapacity = value;}
+        public override List<int> FloorsServed { get => _floorsServed; init => _floorsServed = value; }
+
+        public override string Speed { get => _speed; set => _speed = _elevator.Speed ?? _speed; }
         public override int CurrentFloor { get => _currentFloor; set => _currentFloor = _elevator.CurrentFloor; }
         public override bool IsMoving { get => isMoving; set => isMoving = _elevator.IsMoving; }
-        public override string Direction { get => direction; set => direction = _elevator.Direction ?? ElevatorDirection.Idle.ToString(); }
         public override bool Operational { get => operational; set => operational = _elevator.IsOperational; }
+        
     }
 }
