@@ -1,12 +1,17 @@
 namespace Building.Services.Contracts
 {
-    public class ElevatorControlService: IElevatorControlService
+    public class ElevatorControlService : IElevatorControlService
     {
+        
         public ElevatorControlService()
         {
             
         }
 
+        public void OpenDoor()
+        {
+            throw new NotImplementedException();
+        }
         public void CloseDoor()
         {
             throw new NotImplementedException();
@@ -17,9 +22,5 @@ namespace Building.Services.Contracts
             throw new NotImplementedException();
         }
 
-        public void OpenDoor()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

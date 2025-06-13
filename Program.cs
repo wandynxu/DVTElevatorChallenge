@@ -3,27 +3,36 @@ using Microsoft.Extensions.DependencyInjection;
 using Building.Services;
 using Building.Services.Contracts;
 using Building.Commands.ElevatorControl;
+using Building.Commands.DI;
+using Elevator.Classes.Concretes;
 
-var service = new ServiceCollection()
-    .AddSingleton<IElevatorControlService, ElevatorControlService>()
-    .BuildServiceProvider();
-
-//Spectre Console Settings
-var app = new CommandApp();
-app.Configure(c =>
+//Inject Services to Spectre Console Commands
+static ITypeRegistrar RegisterServices()
 {
-    c.AddCommand<ElevatorTypesCommand>("elevator-types");
-    /*
-    c.AddBranch("elevator-types", elevator =>
-    {
-        
-        elevator.AddBranch("select-floor", create =>
-        {
-            create.AddCommand<FloorCommand>("floor");
-        });
+    var services = new ServiceCollection()
+                        .AddSingleton<IElevatorControlService, ElevatorControlService>();
+                        //.AddSingleton<IElevatorControlService<Emergency>, ElevatorControlService<Emergency>>()
+                        //.AddSingleton<IElevatorControlService<Freight>, ElevatorControlService<Freight>>()
+                        //.AddSingleton<IElevatorControlService<Passenger>, ElevatorControlService<Passenger>>()
+                        //.AddSingleton<IElevatorControlService<Service>, ElevatorControlService<Service>>()
+                        //.AddSingleton<IElevatorControlService<Sidewalk>, ElevatorControlService<Sidewalk>>();
 
-    });
-    */
-});
+    return new CommandTypeRegistrar(services);
+}
 
-await app.RunAsync(args);
+static IConfigurator ConfigureCommands(IConfigurator config)
+{
+    config.CaseSensitivity(CaseSensitivity.None);
+    config.SetApplicationName("DVT Elevator Challenge");
+    
+    config.AddCommand<ElevatorControlCommand>("elevator-control")
+          .WithDescription("Pick elevator type from list, then input floor number.");
+
+    return config;
+}
+
+
+//Spectre Console
+var app = new CommandApp(RegisterServices());
+app.Configure(config => ConfigureCommands(config));
+return app.Run(args);
