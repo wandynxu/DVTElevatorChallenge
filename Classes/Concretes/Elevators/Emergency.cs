@@ -8,7 +8,7 @@ namespace Elevator.Classes.Concretes
     ///</summary>
     public class Emergency : Elevator
     {
-        private readonly ElevatorType _elevator = default!;
+        
         private int _currentFloor = (int)Floors.Ground;
         private string _speed = ElevatorSpeeds.Fast.ToString();
         private double _weightCapacity = 79.5;
@@ -17,9 +17,9 @@ namespace Elevator.Classes.Concretes
         private List<int> _floorsServed = new List<int> { (int)Floors.Ground, (int)Floors.Roof };
 
         
-        public Emergency(ElevatorType elevator, string id) : base(type: "Emergency", id)
+        public Emergency(string id) : base(type: "Emergency", id)
         {
-            _elevator = elevator;
+           
         }
 
 

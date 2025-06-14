@@ -1,26 +1,35 @@
 namespace Building.Services.Contracts
 {
-    public class ElevatorControlService : IElevatorControlService
+    public sealed class ElevatorControlService<T> : IElevatorControlService<T>
     {
-        
-        public ElevatorControlService()
+        private T _elevator;
+        public ElevatorControlService(T elevator)
         {
-            
+            _elevator = elevator;
         }
 
-        public void OpenDoor()
+        public async Task<T> OpenDoor()
         {
             throw new NotImplementedException();
         }
-        public void CloseDoor()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MoveToFloor(int floor)
+        public async Task<T> CloseDoor()
         {
             throw new NotImplementedException();
         }
 
+        public T MoveToFloor(int floor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T IsMoving()
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Direction()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

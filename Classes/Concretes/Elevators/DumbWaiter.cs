@@ -2,6 +2,7 @@ using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using Building.Enums;
 using Building.Models;
+using Building.Services;
 
 namespace Elevator.Classes.Concretes
 {
@@ -11,7 +12,7 @@ namespace Elevator.Classes.Concretes
     ///</summary> 
     public sealed class DumbWaiter : Elevator
     {
-        private readonly ElevatorType _elevator = default!;
+        
         private int _currentFloor = (int)Floors.Restaurant;
         private string _speed = ElevatorSpeeds.Slow.ToString();
         private double _weightCapacity = 54.0;
@@ -20,9 +21,9 @@ namespace Elevator.Classes.Concretes
         private List<int> _floorsServed = new List<int> { (int)Floors.Restaurant, (int)Floors.Residential };
 
         
-        public DumbWaiter(ElevatorType elevator, string id) : base(type: "DumbWaiter", id)
+        public DumbWaiter(string id) : base(type: "DumbWaiter", id)
         {
-            _elevator = elevator;
+            
         }
 
 

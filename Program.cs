@@ -10,12 +10,12 @@ using Elevator.Classes.Concretes;
 static ITypeRegistrar RegisterServices()
 {
     var services = new ServiceCollection()
-                        .AddSingleton<IElevatorControlService, ElevatorControlService>();
-                        //.AddSingleton<IElevatorControlService<Emergency>, ElevatorControlService<Emergency>>()
-                        //.AddSingleton<IElevatorControlService<Freight>, ElevatorControlService<Freight>>()
-                        //.AddSingleton<IElevatorControlService<Passenger>, ElevatorControlService<Passenger>>()
-                        //.AddSingleton<IElevatorControlService<Service>, ElevatorControlService<Service>>()
-                        //.AddSingleton<IElevatorControlService<Sidewalk>, ElevatorControlService<Sidewalk>>();
+                        .AddSingleton<IElevatorControlService<DumbWaiter>, ElevatorControlService<DumbWaiter>>()
+                        .AddSingleton<IElevatorControlService<Emergency>, ElevatorControlService<Emergency>>()
+                        .AddSingleton<IElevatorControlService<Freight>, ElevatorControlService<Freight>>()
+                        .AddSingleton<IElevatorControlService<Passenger>, ElevatorControlService<Passenger>>()
+                        .AddSingleton<IElevatorControlService<Service>, ElevatorControlService<Service>>()
+                        .AddSingleton<IElevatorControlService<Sidewalk>, ElevatorControlService<Sidewalk>>();
 
     return new CommandTypeRegistrar(services);
 }
@@ -25,7 +25,7 @@ static IConfigurator ConfigureCommands(IConfigurator config)
     config.CaseSensitivity(CaseSensitivity.None);
     config.SetApplicationName("DVT Elevator Challenge");
     
-    config.AddCommand<ElevatorControlCommand>("elevator-control")
+    config.AddCommand<InteractiveElevatorControl>("elevator-control")
           .WithDescription("Pick elevator type from list, then input floor number.");
 
     return config;

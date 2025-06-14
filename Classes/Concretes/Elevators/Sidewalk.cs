@@ -10,7 +10,7 @@ namespace Elevator.Classes.Concretes
     ///</summary>
     public sealed class Sidewalk: Elevator
     {
-        private readonly ElevatorType _elevator = default!;
+        
         private int _currentFloor = (int)Floors.Basement;
         private string _speed = ElevatorSpeeds.Slow.ToString();
         private double _weightCapacity = 59.5;
@@ -19,9 +19,9 @@ namespace Elevator.Classes.Concretes
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Ground };
 
 
-        public Sidewalk(ElevatorType elevator, string id) : base(type: "Sidewalk", id)
+        public Sidewalk(string id) : base(type: "Sidewalk", id)
         {
-            _elevator = elevator;
+            
         }
 
 

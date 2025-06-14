@@ -9,7 +9,7 @@ namespace Elevator.Classes.Concretes
     ///</summary>
     public sealed class Service: Elevator
     {
-        private readonly ElevatorType _elevator = default!;
+        
         private int _currentFloor = (int)Floors.Basement;
         private string _speed = ElevatorSpeeds.Normal.ToString();
         private double _weightCapacity = 100.6;
@@ -18,9 +18,8 @@ namespace Elevator.Classes.Concretes
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
 
         
-        public Service(ElevatorType elevator, string id) : base(type: "Service", id)
+        public Service(string id) : base(type: "Service", id)
         {
-            _elevator = elevator;
         }
         
 

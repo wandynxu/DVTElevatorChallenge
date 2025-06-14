@@ -9,7 +9,6 @@ namespace Elevator.Classes.Concretes
     ///</summary>
     public sealed class Freight : Elevator
     {
-        private readonly ElevatorType _elevator = default!;
         private int _currentFloor = (int)Floors.Basement;
         private string _speed = ElevatorSpeeds.Slow.ToString();
         private double _weightCapacity = 120.5;
@@ -18,9 +17,9 @@ namespace Elevator.Classes.Concretes
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
   
         
-        public Freight(ElevatorType elevator, string id) : base(type: "Freight", id)
+        public Freight(string id) : base(type: "Freight", id)
         {
-            _elevator = elevator;
+            
         }
         
 
