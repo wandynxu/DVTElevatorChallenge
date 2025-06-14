@@ -25,11 +25,11 @@ namespace Elevator.Classes
         /// </summary>
         public abstract int NumberOfElevators { get; init; }
         /// <summary>
-        /// Maximum weight in a static state in Kg.
+        /// Maximum passengers in elevator.
         /// </summary>
-        public abstract double WeightCapacity { get; init; }
+        public abstract int PassengerLimit { get; init; }
         /// <summary>
-        /// Maximum weight can withstand during movement in Kg.
+        /// Maximum weight can withstand during movement.
         /// </summary>
         public abstract double WeightLimit { get; init; }
         /// <summary>
@@ -38,10 +38,7 @@ namespace Elevator.Classes
         public abstract List<int> FloorsServed { get; init; }
 
         public abstract string Speed { get; set; }
-        public abstract int CurrentFloor { get; set; }
-        public abstract bool IsMoving { get; set; }
-        public abstract bool Operational { get; set; }
-
+        
         public override string ToString()
         {
             return "Elevator:{ElevatorType}, CurrentFloor:{CurrentFloor}, IsMoving:{In Motion/Stationary}, NumberOfPassengers:{Passengers}/WeightOfGoods:{Passengers}";

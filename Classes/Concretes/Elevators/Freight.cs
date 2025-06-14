@@ -5,34 +5,28 @@ namespace Elevator.Classes.Concretes
 {
     ///<summary>
     /// Heavy Goods.
-    /// Can also be used by people.
     ///</summary>
     public sealed class Freight : Elevator
     {
-        private int _currentFloor = (int)Floors.Basement;
+        
         private string _speed = ElevatorSpeeds.Slow.ToString();
-        private double _weightCapacity = 120.5;
+        private int _passengerLimit = 0;
         private double _weightLimit = 141.74;
         private int _numberOfElevators = (int)Elevators.Freight;
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
   
-        
         public Freight(string id) : base(type: "Freight", id)
         {
             
         }
         
-
         public override int NumberOfElevators { get => _numberOfElevators; init => _numberOfElevators = value; }
-        public override double WeightCapacity { get => _weightCapacity; init => _weightCapacity = value; }
-        public override double WeightLimit { get => _weightLimit; init => _weightCapacity = value;}
+        public override int PassengerLimit { get => _passengerLimit; init => _passengerLimit = value; }
+        public override double WeightLimit { get => _weightLimit; init => _weightLimit = value;}
         public override List<int> FloorsServed { get => _floorsServed; init => _floorsServed = value; }
 
-
         public override string Speed { get => _speed; set => _speed = value; }
-        public override int CurrentFloor { get => _currentFloor; set => _currentFloor = _elevator.CurrentFloor; }
-        public override bool IsMoving { get => isMoving; set => isMoving = _elevator.IsMoving; }
-        public override bool Operational { get => operational; set => operational = _elevator.IsOperational; }
+        
         
     }
 }

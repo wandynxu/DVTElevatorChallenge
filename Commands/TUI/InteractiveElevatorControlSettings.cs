@@ -13,7 +13,7 @@ namespace Building.Commands.ElevatorControl.Settings
         public int CurrentFloor { get; private set; }
         public int TargetFloor { get; private set; }
         public int NumberOfPassengers { get; private set; }
-        public int WeightOfGoods { get; private set; }
+        public double WeightOfGoods { get; private set; }
         public void PromptForElevatorType()
         {
             ElevatorType = AnsiConsole.Prompt(new SelectionPrompt<Elevators>()
@@ -72,7 +72,7 @@ namespace Building.Commands.ElevatorControl.Settings
 
         public void PromptForNumberOfPassengers()
         {
-            NumberOfPassengers = AnsiConsole.Prompt(new TextPrompt<int>("Please Enter Number Of Passengers waiting:")
+            NumberOfPassengers = AnsiConsole.Prompt(new TextPrompt<int>("Please Enter Number Of Passengers waiting on current floor:")
                 .Validate(passengers =>
                 {
                     if (passengers < 1)
@@ -86,7 +86,7 @@ namespace Building.Commands.ElevatorControl.Settings
         
         public void PromptForWeightOfGoods()
         {
-            WeightOfGoods = AnsiConsole.Prompt(new TextPrompt<int>("Please Enter Weight Of Goods(Kgs):")
+            WeightOfGoods = AnsiConsole.Prompt(new TextPrompt<double>("Please Enter Weight Of Goods:")
                 .Validate(goods =>
                 {
                     if (goods < 1)

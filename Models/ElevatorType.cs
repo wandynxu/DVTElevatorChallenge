@@ -15,7 +15,7 @@ namespace Building.Models
         ///</summary>
         public int NumberOfPassengers { get; set; }
         ///<summary>
-        /// Weight of goods to be transported on each floor.
+        /// Weight of goods to be transported.
         ///</summary>
         public double WeightOfGoods { get; set; }
     }
