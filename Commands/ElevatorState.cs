@@ -2,6 +2,7 @@ namespace Building.Commands
 {
     public class ElevatorState
     {
+        
         public void Stop()
         {
             Console.WriteLine("Elevator Stopped.");
