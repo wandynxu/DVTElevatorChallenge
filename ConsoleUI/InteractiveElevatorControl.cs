@@ -1,18 +1,19 @@
 using Building.Classes.Concretes.Elevators;
 using Building.Enums;
 using Spectre.Console.Cli;
-using Building.Models;
 using Building.Classes;
-namespace Building.Commands.TUI
+using Building.Commands;
+namespace Building.ConsoleUI
 {
-    public sealed class InteractiveElevatorControl : Command<InteractiveElevatorControlSettings>
+    public sealed class InteractiveElevatorControl : AsyncCommand<InteractiveElevatorControlSettings>
     {
-        public InteractiveElevatorControl()
+        private readonly IElevatorControl _elevatorControl;
+        public InteractiveElevatorControl(IElevatorControl elevatorControl)
         {
-
+            _elevatorControl = elevatorControl;
         }
 
-        public override int Execute(CommandContext context, InteractiveElevatorControlSettings settings)
+        public override async Task<int> ExecuteAsync(CommandContext context, InteractiveElevatorControlSettings settings)
         {
             ConsoleKey exitKey;
             do
@@ -20,13 +21,15 @@ namespace Building.Commands.TUI
                 string speed = string.Empty;
                 int numberOfPassengers = 0;
                 double weightOfGoods = 0.0;
-                
+
                 settings.PromptForElevatorType();
                 if (settings.ElevatorType is ElevatorTypes.Passenger)
                 {
                     settings.PromptForElevatorSpeed(settings.ElevatorType.ToString());
                     speed = settings.ElevatorSpeed.ToString();
                 }
+
+                settings.PromptForCurrentFloor();
 
                 if (settings.ElevatorType is ElevatorTypes.Passenger or ElevatorTypes.Emergency or ElevatorTypes.Service)
                 {
@@ -39,10 +42,8 @@ namespace Building.Commands.TUI
                     weightOfGoods = settings.WeightOfGoods;
                 }
 
-                settings.PromptForCurrentFloor();
-                
                 settings.PromptForTargetFloor();
-                
+
                 Models.Elevator elevator = new Models.Elevator
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -55,7 +56,7 @@ namespace Building.Commands.TUI
 
                 };
 
-                ElevatorType? obj = settings.ElevatorType switch
+                ElevatorType? elevatorType = settings.ElevatorType switch
                 {
 
                     ElevatorTypes.Passenger => new Passenger(elevator.Id),
@@ -66,10 +67,12 @@ namespace Building.Commands.TUI
                     ElevatorTypes.Sidewalk => new Sidewalk(elevator.Id),
                     _ => null
                 };
-
-                Console.WriteLine($"{obj?.Id}");
+                
+                if (elevatorType is not null)
+                    await _elevatorControl.SimulateElevator(elevatorType, elevator);
+                 
                 exitKey = Console.ReadKey(false).Key;
-            //Exit Application    
+                //Exit Application    
             } while (exitKey != ConsoleKey.Q);
 
 

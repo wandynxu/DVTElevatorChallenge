@@ -7,7 +7,7 @@ namespace Building.Classes.Concretes.Elevators
     ///</summary>
     public sealed class Freight : ElevatorType
     {
-        
+        private string _state = ElevatorStates.Stop.ToString();
         private string _speed = ElevatorSpeeds.Slow.ToString();
         private int _passengerLimit = 0;
         private double _weightLimit = 141.74;
@@ -25,7 +25,6 @@ namespace Building.Classes.Concretes.Elevators
         public override List<int> FloorsServed { get => _floorsServed; init => _floorsServed = value; }
 
         public override string Speed { get => _speed; set => _speed = value; }
-        
-        
+        public override string State { get => _state; set => _state = value; }
     }
 }

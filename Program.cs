@@ -1,22 +1,17 @@
 ﻿using Spectre.Console.Cli;
 using Microsoft.Extensions.DependencyInjection;
-using Building.Services;
-using Building.Services.Contracts;
-using Building.Classes.Concretes.Elevators;
-using Building.Commands.TUI;
+using Building.Commands;
+using Building.ConsoleUI.DI;
+using Building.ConsoleUI;
 
 
 //Inject Services to Spectre Console Commands
 static ITypeRegistrar RegisterServices()
 {
     var services = new ServiceCollection()
-                        .AddSingleton<IElevatorControlService<DumbWaiter>, ElevatorControlService<DumbWaiter>>()
-                        .AddSingleton<IElevatorControlService<Emergency>, ElevatorControlService<Emergency>>()
-                        .AddSingleton<IElevatorControlService<Freight>, ElevatorControlService<Freight>>()
-                        .AddSingleton<IElevatorControlService<Passenger>, ElevatorControlService<Passenger>>()
-                        .AddSingleton<IElevatorControlService<Service>, ElevatorControlService<Service>>()
-                        .AddSingleton<IElevatorControlService<Sidewalk>, ElevatorControlService<Sidewalk>>();
-
+                       .AddSingleton<IElevatorControl, ElevatorControl>()
+                       .AddSingleton<ElevatorState>();
+                   
     return new CommandTypeRegistrar(services);
 }
 
@@ -25,8 +20,10 @@ static IConfigurator ConfigureCommands(IConfigurator config)
     config.CaseSensitivity(CaseSensitivity.None);
     config.SetApplicationName("DVT Elevator Challenge");
     
-    config.AddCommand<InteractiveElevatorControl>("elevator-control")
+    config.AddCommand<InteractiveElevatorControl>("elevator")
           .WithDescription("Pick elevator type from list, then input floor number.");
+    
+    config.PropagateExceptions(); 
 
     return config;
 }

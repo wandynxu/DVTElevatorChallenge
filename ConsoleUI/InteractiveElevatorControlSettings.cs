@@ -2,7 +2,7 @@ using Building.Enums;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
-namespace Building.Commands.TUI
+namespace Building.ConsoleUI
 {
     public sealed class InteractiveElevatorControlSettings : CommandSettings
     {
@@ -71,7 +71,7 @@ namespace Building.Commands.TUI
 
         public void PromptForNumberOfPassengers()
         {
-            NumberOfPassengers = AnsiConsole.Prompt(new TextPrompt<int>("Please Enter Number Of Passengers waiting on current floor:")
+            NumberOfPassengers = AnsiConsole.Prompt(new TextPrompt<int>("Please Enter Number Of Passengers Waiting On Current Floor:")
                 .Validate(passengers =>
                 {
                     if (passengers < 1)

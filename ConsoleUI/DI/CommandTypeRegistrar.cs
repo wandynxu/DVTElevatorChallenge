@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console.Cli;
 
-namespace Building.Commands.TUI
+namespace Building.ConsoleUI.DI
 {
     public sealed class CommandTypeRegistrar : ITypeRegistrar
     {

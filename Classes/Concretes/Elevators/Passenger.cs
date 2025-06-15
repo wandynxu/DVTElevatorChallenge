@@ -7,6 +7,7 @@ namespace Building.Classes.Concretes.Elevators
     ///</summary>
     public class Passenger: ElevatorType
     {
+        private string _state = ElevatorStates.Stop.ToString();
         private string _speed = ElevatorSpeeds.Normal.ToString();
         private int _passengerLimit = 25;
         private double _weightLimit = 100.5;
@@ -25,7 +26,6 @@ namespace Building.Classes.Concretes.Elevators
 
 
         public override string Speed { get => _speed; set => _speed = value; }
-        
-        
+        public override string State { get => _state; set => _state = value; }
     }
 }

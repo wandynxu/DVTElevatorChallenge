@@ -2,8 +2,7 @@ namespace Building.Classes
 {
     public abstract class ElevatorType
     {
-        protected bool isMoving = false;
-        protected bool operational = true;
+        
         internal ElevatorType(string type, string id)
         {
             Type = type;
@@ -37,6 +36,8 @@ namespace Building.Classes
 
         public abstract string Speed { get; set; }
         
+        public abstract string State { get; set; }
+
         public override string ToString()
         {
             return "Elevator:{ElevatorType}, CurrentFloor:{CurrentFloor}, IsMoving:{In Motion/Stationary}, NumberOfPassengers:{Passengers}/WeightOfGoods:{Passengers}";

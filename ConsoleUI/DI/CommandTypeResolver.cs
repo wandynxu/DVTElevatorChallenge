@@ -1,6 +1,6 @@
 using Spectre.Console.Cli;
 
-namespace Building.Commands.TUI
+namespace Building.ConsoleUI.DI
 {
     public sealed class CommandTypeResolver : ITypeResolver, IDisposable
     {

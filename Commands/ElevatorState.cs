@@ -1,6 +1,6 @@
-namespace Building.Commands.ElevatorControl
+namespace Building.Commands
 {
-    public class ElevatorControlState
+    public class ElevatorState
     {
         public void Stop()
         {
@@ -11,7 +11,7 @@ namespace Building.Commands.ElevatorControl
             Console.WriteLine("Elevator Door Opening...");
         }
 
-        public void ClosedDoor()
+        public void CloseDoor()
         {
             Console.WriteLine("Elevator Door Closing...");
         }
