@@ -10,17 +10,23 @@ namespace Building.Commands
             _elevatorState = elevatorState;
         }
 
-        public Task SimulateElevator(ElevatorType elevatorType, Models.Elevator elevator)
+        public Task SimulateElevator(ElevatorType elevatorType)
         {
 
-            // TODO: Implement elevator simulation logic here
-            Console.WriteLine($"Now Simulating Elevator: {elevatorType.Id} -> {elevatorType.Type}");
+            Console.WriteLine($"Now Simulating {elevatorType.Type} Elevator");
+            elevatorType.ToString();
             return Task.CompletedTask;
         }
         
-        public void DisplayStatus(ElevatorType elevatorType)
+        
+        public void SetDirection(string direction)
         {
-            elevatorType.ToString();
+            throw new NotImplementedException();
+        }
+
+        public void SetStatus(string status)
+        {
+            throw new NotImplementedException();
         }
     }
 }

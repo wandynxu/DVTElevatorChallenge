@@ -3,6 +3,7 @@ namespace Building.Classes
     public abstract class ElevatorType
     {
         protected int currentFloor;
+        protected int targetFloor;
         protected int currentNumberOfPassengers;
         protected double currentWeightOfGoods;
         protected string? speed;
@@ -41,17 +42,16 @@ namespace Building.Classes
         public abstract IReadOnlyList<int> FloorsServed { get; }
 
         public abstract int CurrentFloor { get; set; }
+        public abstract int TargetFloor { get; set; }
         public abstract int CurrentNumberOfPassengers { get; set; }
         public abstract double CurrentWeightOfGoods { get; set; }
         public abstract string Speed { get; set; }
-
         public abstract string Direction { get; set; }
-
         public abstract string State { get; set; }
 
         public override string ToString()
         {
-            if (currentWeightOfGoods == 0)
+            if (CurrentWeightOfGoods == 0)
             {
                 return $"Elevator: {Type}, CurrentFloor: {currentFloor}, Direction: {direction}, State: {state}, Number Of Passengers: {currentNumberOfPassengers}";
             }

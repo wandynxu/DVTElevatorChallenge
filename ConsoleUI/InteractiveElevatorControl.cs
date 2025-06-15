@@ -3,6 +3,7 @@ using Building.Enums;
 using Spectre.Console.Cli;
 using Building.Classes;
 using Building.Commands;
+using Spectre.Console;
 namespace Building.ConsoleUI
 {
     public sealed class InteractiveElevatorControl : AsyncCommand<InteractiveElevatorControlSettings>
@@ -27,6 +28,14 @@ namespace Building.ConsoleUI
                 {
                     settings.PromptForElevatorSpeed(settings.ElevatorType.ToString());
                     speed = settings.ElevatorSpeed.ToString();
+                }
+                else if (settings.ElevatorType is ElevatorTypes.Emergency)
+                {
+                    speed = ElevatorSpeed.Fast.ToString();
+                }
+                else if (settings.ElevatorType is ElevatorTypes.DumbWaiter)
+                {
+                    speed = ElevatorSpeed.Slow.ToString();
                 }
 
                 settings.PromptForCurrentFloor();
@@ -53,7 +62,6 @@ namespace Building.ConsoleUI
                     Speed = speed,
                     NumberOfPassengers = numberOfPassengers,
                     WeightOfGoods = weightOfGoods
-
                 };
 
                 ElevatorType? elevatorType = settings.ElevatorType switch
@@ -69,16 +77,20 @@ namespace Building.ConsoleUI
                 };
 
                 if (elevatorType is not null)
-                { 
-                    await _elevatorControl.SimulateElevator(elevatorType, elevator);
-                }
+                {
+                    elevatorType.CurrentFloor = elevator.CurrentFloor;
+                    elevatorType.TargetFloor = elevator.TargetFloor;
+                    elevatorType.Speed = elevator.Speed;
+                    elevatorType.CurrentNumberOfPassengers = elevator.NumberOfPassengers;
+                    elevatorType.CurrentWeightOfGoods = elevator.WeightOfGoods;
                     
-                 
+                    await _elevatorControl.SimulateElevator(elevatorType);
+                }
+
+                AnsiConsole.MarkupLine($"Press Any [green]Enter[/] to continue/[red] [Q] [/] to exit application.");
                 exitKey = Console.ReadKey(false).Key;
                 //Exit Application    
             } while (exitKey != ConsoleKey.Q);
-
-
 
             return 0;
         }

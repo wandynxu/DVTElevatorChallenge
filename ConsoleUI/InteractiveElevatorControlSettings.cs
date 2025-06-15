@@ -36,7 +36,7 @@ namespace Building.ConsoleUI
                     AnsiConsole.MarkupLine($"You have selected a [red]{ElevatorType} Elevator.[/]");
                     break;
                 case ElevatorTypes.DumbWaiter:
-                    AnsiConsole.MarkupLine($"You have selected a [brown]{ElevatorType} Elevator.[/]");
+                    AnsiConsole.MarkupLine($"You have selected a [grey]{ElevatorType} Elevator.[/]");
                     break;
                 case ElevatorTypes.Freight:
                     AnsiConsole.MarkupLine($"You have selected a [yellow]{ElevatorType} Elevator.[/]");
@@ -54,7 +54,7 @@ namespace Building.ConsoleUI
                                                     .Title($"Please Select Elevator Speed -> {elevatorType}:")
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
                                                     .AddChoices(Enum.GetValues(typeof(ElevatorSpeed)).Cast<ElevatorSpeed>()));
-
+            
             AnsiConsole.MarkupLine($"[blue]{ElevatorSpeed} Speed [/] -> [green]{elevatorType}[/] Elevator.");
         }
 

@@ -11,7 +11,7 @@ namespace Building.Classes.Concretes.Elevators
         
         private const int _passengerLimit = 0;
         private const double _weightLimit = 54.5;
-        private const int _numberOfElevators = (int)ElevatorTypes.DumbWaiter;
+        private const int _numberOfElevators = 1;
         private List<int> _floorsServed = new List<int> { (int)Floors.Restaurant, (int)Floors.Residential };
 
         public DumbWaiter(string id) : base(type: "DumbWaiter", id)
@@ -24,12 +24,12 @@ namespace Building.Classes.Concretes.Elevators
         public override double WeightLimit { get => _weightLimit;  }
         public override IReadOnlyList<int> FloorsServed { get => _floorsServed; }
 
-        public override string Speed { get => Speed; set => speed = value; }
-        public override int CurrentNumberOfPassengers { get => CurrentNumberOfPassengers; set => currentNumberOfPassengers = value; }
-        public override double CurrentWeightOfGoods { get => CurrentWeightOfGoods; set => currentWeightOfGoods = value; }
-        public override string State { get => State; set => state = value; }
-        public override int CurrentFloor { get => CurrentFloor; set => currentFloor = value; }
-        
-        public override string Direction { get => Direction; set => direction = value; }
+        public override string Speed { get => speed ?? string.Empty; set => speed = value; }
+        public override int CurrentNumberOfPassengers { get => currentNumberOfPassengers; set => currentNumberOfPassengers = value; }
+        public override double CurrentWeightOfGoods { get => currentWeightOfGoods; set => currentWeightOfGoods = value; }
+        public override string State { get => state ?? string.Empty; set => state = value; }
+        public override int CurrentFloor { get => currentFloor; set => currentFloor = value; }
+        public override string Direction { get => direction ?? string.Empty; set => direction = value; }
+        public override int TargetFloor { get => targetFloor; set => targetFloor =  value; }
     }
 }

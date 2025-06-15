@@ -1,3 +1,5 @@
+using Building.Enums;
+
 namespace Building.Models
 {
     /// <summary>
@@ -5,11 +7,11 @@ namespace Building.Models
     /// </summary>
     public class Elevator
     {
-        public required string Id { get; init; }
-        public required string Name { get; init; }
+        public required string Id { get; set; }
+        public required string Name { get; set; }
         public int CurrentFloor { get; set; }
         public int TargetFloor { get; set; }
-        public string? Speed { get; set; }
+        public string? Speed { get; set; } = ElevatorSpeed.Normal.ToString();
         ///<summary>
         /// Number of passengers carrying.
         ///</summary>
