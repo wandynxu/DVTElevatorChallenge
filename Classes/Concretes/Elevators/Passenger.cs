@@ -1,17 +1,16 @@
 using Building.Enums;
-using Building.Models;
 
-namespace Elevator.Classes.Concretes
+namespace Building.Classes.Concretes.Elevators
 {
     ///<summary>
     /// Residential & Express.
     ///</summary>
-    public class Passenger: Elevator
+    public class Passenger: ElevatorType
     {
         private string _speed = ElevatorSpeeds.Normal.ToString();
         private int _passengerLimit = 25;
         private double _weightLimit = 100.5;
-        private int _numberOfElevators = (int)Elevators.Passenger;
+        private int _numberOfElevators = (int)ElevatorTypes.Passenger;
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
 
         public Passenger(string id) : base(type: "Passenger", id)

@@ -3,7 +3,7 @@ namespace Building.Models
     /// <summary>
     /// Elevator class representing an elevator in a building.
     /// </summary>
-    public class ElevatorType
+    public class Elevator
     {
         public required string Id { get; init; }
         public required string Name { get; init; }
@@ -11,7 +11,7 @@ namespace Building.Models
         public int TargetFloor { get; set; }
         public string? Speed { get; set; }
         ///<summary>
-        /// Number of passengers waiting on each floor.
+        /// Number of passengers carrying.
         ///</summary>
         public int NumberOfPassengers { get; set; }
         ///<summary>

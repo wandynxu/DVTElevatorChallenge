@@ -1,18 +1,18 @@
 using Building.Enums;
 
-namespace Elevator.Classes.Concretes
+namespace Building.Classes.Concretes.Elevators
 {
     ///<summary>
     /// Transport small loads(Floor to floor).
     /// and are not used for transporting people.
     ///</summary> 
-    public sealed class DumbWaiter : Elevator
+    public sealed class DumbWaiter : ElevatorType
     {
         
         private string _speed = ElevatorSpeeds.Slow.ToString();
         private int _passengerLimit = 0;
         private double _weightLimit = 54.5;
-        private int _numberOfElevators = (int)Elevators.Dumbwaiter;
+        private int _numberOfElevators = (int)ElevatorTypes.DumbWaiter;
         private List<int> _floorsServed = new List<int> { (int)Floors.Restaurant, (int)Floors.Residential };
 
         public DumbWaiter(string id) : base(type: "DumbWaiter", id)

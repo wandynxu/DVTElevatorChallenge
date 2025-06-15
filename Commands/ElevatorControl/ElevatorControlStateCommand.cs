@@ -1,4 +1,4 @@
-namespace Building.Commands.ElevatorControl.Concretes
+namespace Building.Commands.ElevatorControl
 {
     public class ElevatorControlStateCommand : IElevatorControlCommand
     {

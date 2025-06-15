@@ -1,13 +1,12 @@
 using Building.Enums;
-using Elevator.Classes.Concretes;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
-namespace Building.Commands.ElevatorControl.Settings
+namespace Building.Commands.TUI
 {
     public sealed class InteractiveElevatorControlSettings : CommandSettings
     {
-        public Elevators ElevatorType { get; private set; }
+        public ElevatorTypes ElevatorType { get; private set; }
         public ElevatorSpeeds ElevatorSpeed { get; private set; }
 
         public int CurrentFloor { get; private set; }
@@ -16,28 +15,28 @@ namespace Building.Commands.ElevatorControl.Settings
         public double WeightOfGoods { get; private set; }
         public void PromptForElevatorType()
         {
-            ElevatorType = AnsiConsole.Prompt(new SelectionPrompt<Elevators>()
+            ElevatorType = AnsiConsole.Prompt(new SelectionPrompt<ElevatorTypes>()
                                                     .Title("Please Select Elevator Type:")
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
-                                                    .AddChoices(Enum.GetValues(typeof(Elevators)).Cast<Elevators>()));
+                                                    .AddChoices(Enum.GetValues(typeof(ElevatorTypes)).Cast<ElevatorTypes>()));
             switch (ElevatorType)
             {
-                case Elevators.Passenger:
+                case ElevatorTypes.Passenger:
                     AnsiConsole.MarkupLine($"You have selected a [green]{ElevatorType} Elevator.[/]");
                     break;
-                case Elevators.Sidewalk:
+                case ElevatorTypes.Sidewalk:
                     AnsiConsole.MarkupLine($"You have selected a [blue]{ElevatorType} Elevator.[/]");
                     break;
-                case Elevators.Service:
+                case ElevatorTypes.Service:
                     AnsiConsole.MarkupLine($"You have selected a [yellow]{ElevatorType} Elevator.[/]");
                     break;
-                case Elevators.Emergency:
+                case ElevatorTypes.Emergency:
                     AnsiConsole.MarkupLine($"You have selected a [red]{ElevatorType} Elevator.[/]");
                     break;
-                case Elevators.Dumbwaiter:
+                case ElevatorTypes.DumbWaiter:
                     AnsiConsole.MarkupLine($"You have selected a [brown]{ElevatorType} Elevator.[/]");
                     break;
-                case Elevators.Freight:
+                case ElevatorTypes.Freight:
                     AnsiConsole.MarkupLine($"You have selected a [yellow]{ElevatorType} Elevator.[/]");
                     break;
                 default:

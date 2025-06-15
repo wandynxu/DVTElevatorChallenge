@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Building.Services;
 using Building.Services.Contracts;
-using Building.Commands.ElevatorControl;
-using Building.Commands.DI;
-using Elevator.Classes.Concretes;
+using Building.Classes.Concretes.Elevators;
+using Building.Commands.TUI;
+
 
 //Inject Services to Spectre Console Commands
 static ITypeRegistrar RegisterServices()

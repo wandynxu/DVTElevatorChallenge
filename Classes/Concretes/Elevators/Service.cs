@@ -1,19 +1,18 @@
 using Building.Enums;
-using Building.Models;
 
-namespace Elevator.Classes.Concretes
+namespace Building.Classes.Concretes.Elevators
 {
     ///<summary>
     /// Only Staff Members.
     /// Only authorized personnel.
     ///</summary>
-    public sealed class Service: Elevator
+    public sealed class Service: ElevatorType
     {
         
         private string _speed = ElevatorSpeeds.Normal.ToString();
         private int _passengerLimit = 4;
         private double _weightLimit = 80.5;
-        private int _numberOfElevators = (int)Elevators.Service;
+        private int _numberOfElevators = (int)ElevatorTypes.Service;
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
 
         public Service(string id) : base(type: "Service", id)

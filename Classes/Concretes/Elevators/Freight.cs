@@ -1,18 +1,17 @@
 using Building.Enums;
-using Building.Models;
 
-namespace Elevator.Classes.Concretes
+namespace Building.Classes.Concretes.Elevators
 {
     ///<summary>
     /// Heavy Goods.
     ///</summary>
-    public sealed class Freight : Elevator
+    public sealed class Freight : ElevatorType
     {
         
         private string _speed = ElevatorSpeeds.Slow.ToString();
         private int _passengerLimit = 0;
         private double _weightLimit = 141.74;
-        private int _numberOfElevators = (int)Elevators.Freight;
+        private int _numberOfElevators = (int)ElevatorTypes.Freight;
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
   
         public Freight(string id) : base(type: "Freight", id)

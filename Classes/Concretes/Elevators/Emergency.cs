@@ -1,18 +1,17 @@
 using Building.Enums;
-using Building.Models;
 
-namespace Elevator.Classes.Concretes
+namespace Building.Classes.Concretes.Elevators
 {
     ///<summary>
     /// Only Evacuation Purposes.
     ///</summary>
-    public class Emergency : Elevator
+    public class Emergency : ElevatorType
     {
         
         private string _speed = ElevatorSpeeds.Fast.ToString();
         private int _passengerLimit = 15;
         private double _weightLimit = 79.5;
-        private int _numberOfElevators = (int)Elevators.Emergency;
+        private int _numberOfElevators = (int)ElevatorTypes.Emergency;
         private List<int> _floorsServed = new List<int> { (int)Floors.Ground, (int)Floors.Roof };
 
         public Emergency(string id) : base(type: "Emergency", id)

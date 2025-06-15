@@ -1,12 +1,10 @@
-using Building.Enums;
-
-namespace Elevator.Classes
+namespace Building.Classes
 {
-    public abstract class Elevator
+    public abstract class ElevatorType
     {
         protected bool isMoving = false;
         protected bool operational = true;
-        public Elevator(string type, string id)
+        internal ElevatorType(string type, string id)
         {
             Type = type;
             Id = id;

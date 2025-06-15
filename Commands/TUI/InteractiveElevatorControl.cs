@@ -1,10 +1,9 @@
-using Building.Commands.ElevatorControl.Settings;
+using Building.Classes.Concretes.Elevators;
 using Building.Enums;
-using Building.Models;
-using Spectre.Console;
 using Spectre.Console.Cli;
-
-namespace Building.Commands.ElevatorControl
+using Building.Models;
+using Building.Classes;
+namespace Building.Commands.TUI
 {
     public sealed class InteractiveElevatorControl : Command<InteractiveElevatorControlSettings>
     {
@@ -21,45 +20,54 @@ namespace Building.Commands.ElevatorControl
                 string speed = string.Empty;
                 int numberOfPassengers = 0;
                 double weightOfGoods = 0.0;
-                int currentFloor = 0;
-                int targetFloor = 0;
-
+                
                 settings.PromptForElevatorType();
-                if (settings.ElevatorType == Elevators.Passenger)
+                if (settings.ElevatorType is ElevatorTypes.Passenger)
                 {
                     settings.PromptForElevatorSpeed(settings.ElevatorType.ToString());
                     speed = settings.ElevatorSpeed.ToString();
                 }
 
-                if (settings.ElevatorType == Elevators.Passenger || settings.ElevatorType == Elevators.Emergency || settings.ElevatorType == Elevators.Service)
+                if (settings.ElevatorType is ElevatorTypes.Passenger or ElevatorTypes.Emergency or ElevatorTypes.Service)
                 {
                     settings.PromptForNumberOfPassengers();
                     numberOfPassengers = settings.NumberOfPassengers;
                 }
-                else if (settings.ElevatorType == Elevators.Dumbwaiter || settings.ElevatorType == Elevators.Freight || settings.ElevatorType == Elevators.Sidewalk)
+                else if (settings.ElevatorType is ElevatorTypes.DumbWaiter or ElevatorTypes.Freight or ElevatorTypes.Sidewalk)
                 {
                     settings.PromptForWeightOfGoods();
                     weightOfGoods = settings.WeightOfGoods;
                 }
 
                 settings.PromptForCurrentFloor();
-                currentFloor = settings.CurrentFloor;
-
+                
                 settings.PromptForTargetFloor();
-                targetFloor = settings.TargetFloor;
-
-                ElevatorType elevatorType = new ElevatorType
+                
+                Models.Elevator elevator = new Models.Elevator
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = settings.ElevatorType.ToString(),
-                    CurrentFloor = currentFloor,
-                    TargetFloor = targetFloor,
+                    CurrentFloor = settings.CurrentFloor,
+                    TargetFloor = settings.TargetFloor,
                     Speed = speed,
                     NumberOfPassengers = numberOfPassengers,
                     WeightOfGoods = weightOfGoods
 
                 };
 
+                ElevatorType? obj = settings.ElevatorType switch
+                {
+
+                    ElevatorTypes.Passenger => new Passenger(elevator.Id),
+                    ElevatorTypes.DumbWaiter => new DumbWaiter(elevator.Id),
+                    ElevatorTypes.Emergency => new Emergency(elevator.Id),
+                    ElevatorTypes.Freight => new Freight(elevator.Id),
+                    ElevatorTypes.Service => new Service(elevator.Id),
+                    ElevatorTypes.Sidewalk => new Sidewalk(elevator.Id),
+                    _ => null
+                };
+
+                Console.WriteLine($"{obj?.Id}");
                 exitKey = Console.ReadKey(false).Key;
             //Exit Application    
             } while (exitKey != ConsoleKey.Q);
