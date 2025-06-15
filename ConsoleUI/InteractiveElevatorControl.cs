@@ -16,6 +16,9 @@ namespace Building.ConsoleUI
 
         public override async Task<int> ExecuteAsync(CommandContext context, InteractiveElevatorControlSettings settings)
         {
+            int maxFloors = Building.maxFloors;
+            int maxElevators = Building.maxElevators;
+            
             ConsoleKey exitKey;
             do
             {
@@ -51,7 +54,7 @@ namespace Building.ConsoleUI
                     weightOfGoods = settings.WeightOfGoods;
                 }
 
-                settings.PromptForTargetFloor();
+                settings.PromptForTargetFloor(maxFloors);
 
                 Models.Elevator elevator = new Models.Elevator
                 {

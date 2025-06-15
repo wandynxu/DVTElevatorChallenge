@@ -1,4 +1,4 @@
-namespace Elevator.Classes
+namespace Building
 {
     public static class Building
     {

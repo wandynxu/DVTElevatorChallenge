@@ -98,14 +98,14 @@ namespace Building.ConsoleUI
                 }));
 
         }
-        public void PromptForTargetFloor()
+        public void PromptForTargetFloor(int maxFloors)
         {
             TargetFloor = AnsiConsole.Prompt(new TextPrompt<int>("Please Enter Target Floor:")
                 .Validate(floor =>
                 {
-                    if (floor < 0)
+                    if (floor > maxFloors)
                     {
-                        return ValidationResult.Error("Floor number must be greater than / equal to 0.");
+                        return ValidationResult.Error($"Floor number must be greater than {maxFloors}.");
                     }
                     return ValidationResult.Success();
                 }));
