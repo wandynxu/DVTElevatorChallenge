@@ -7,7 +7,6 @@ namespace Building.Models
     /// </summary>
     public class Elevator
     {
-        public required string Id { get; set; }
         public required string Name { get; set; }
         public int CurrentFloor { get; set; }
         public int TargetFloor { get; set; }

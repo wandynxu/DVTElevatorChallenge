@@ -14,17 +14,18 @@ namespace Building.Commands
         {
 
             Console.WriteLine($"Now Simulating {elevatorType.Type} Elevator");
-            elevatorType.ToString();
+
+            Console.WriteLine(elevatorType);
             return Task.CompletedTask;
         }
         
         
-        public void SetDirection(string direction)
+        public void SetDirection(ElevatorType elevatorType)
         {
             throw new NotImplementedException();
         }
 
-        public void SetStatus(string status)
+        public void SetStatus(ElevatorType elevatorType)
         {
             throw new NotImplementedException();
         }

@@ -18,8 +18,9 @@ namespace Building.ConsoleUI
         {
             int maxFloors = Building.maxFloors;
             int maxElevators = Building.maxElevators;
-            
+            List<ElevatorType> elevatorTypes = new();
             ConsoleKey exitKey;
+
             do
             {
                 string speed = string.Empty;
@@ -27,70 +28,80 @@ namespace Building.ConsoleUI
                 double weightOfGoods = 0.0;
 
                 settings.PromptForElevatorType();
-                if (settings.ElevatorType is ElevatorTypes.Passenger)
-                {
-                    settings.PromptForElevatorSpeed(settings.ElevatorType.ToString());
-                    speed = settings.ElevatorSpeed.ToString();
-                }
-                else if (settings.ElevatorType is ElevatorTypes.Emergency)
-                {
-                    speed = ElevatorSpeed.Fast.ToString();
-                }
-                else if (settings.ElevatorType is ElevatorTypes.DumbWaiter)
-                {
-                    speed = ElevatorSpeed.Slow.ToString();
-                }
-
-                settings.PromptForCurrentFloor();
-
-                if (settings.ElevatorType is ElevatorTypes.Passenger or ElevatorTypes.Emergency or ElevatorTypes.Service)
-                {
-                    settings.PromptForNumberOfPassengers();
-                    numberOfPassengers = settings.NumberOfPassengers;
-                }
-                else if (settings.ElevatorType is ElevatorTypes.DumbWaiter or ElevatorTypes.Freight or ElevatorTypes.Sidewalk)
-                {
-                    settings.PromptForWeightOfGoods();
-                    weightOfGoods = settings.WeightOfGoods;
-                }
-
-                settings.PromptForTargetFloor(maxFloors);
-
-                Models.Elevator elevator = new Models.Elevator
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = settings.ElevatorType.ToString(),
-                    CurrentFloor = settings.CurrentFloor,
-                    TargetFloor = settings.TargetFloor,
-                    Speed = speed,
-                    NumberOfPassengers = numberOfPassengers,
-                    WeightOfGoods = weightOfGoods
-                };
-
+                string elevatorId = Guid.NewGuid().ToString();
                 ElevatorType? elevatorType = settings.ElevatorType switch
                 {
 
-                    ElevatorTypes.Passenger => new Passenger(elevator.Id),
-                    ElevatorTypes.DumbWaiter => new DumbWaiter(elevator.Id),
-                    ElevatorTypes.Emergency => new Emergency(elevator.Id),
-                    ElevatorTypes.Freight => new Freight(elevator.Id),
-                    ElevatorTypes.Service => new Service(elevator.Id),
-                    ElevatorTypes.Sidewalk => new Sidewalk(elevator.Id),
+                    ElevatorTypes.Passenger => new Passenger(elevatorId),
+                    ElevatorTypes.DumbWaiter => new DumbWaiter(elevatorId),
+                    ElevatorTypes.Emergency => new Emergency(elevatorId),
+                    ElevatorTypes.Freight => new Freight(elevatorId),
+                    ElevatorTypes.Service => new Service(elevatorId),
+                    ElevatorTypes.Sidewalk => new Sidewalk(elevatorId),
                     _ => null
                 };
 
                 if (elevatorType is not null)
                 {
+                    if (settings.ElevatorType is ElevatorTypes.Passenger)
+                    {
+                        settings.PromptForElevatorSpeed(settings.ElevatorType.ToString());
+                        speed = settings.ElevatorSpeed.ToString();
+                    }
+                    else if (settings.ElevatorType is ElevatorTypes.Emergency)
+                    {
+                        speed = ElevatorSpeed.Fast.ToString();
+                    }
+                    else if (settings.ElevatorType is ElevatorTypes.DumbWaiter)
+                    {
+                        speed = ElevatorSpeed.Slow.ToString();
+                    }
+
+                    settings.PromptForCurrentFloor();
+
+                    if (settings.ElevatorType is ElevatorTypes.Passenger or ElevatorTypes.Emergency or ElevatorTypes.Service)
+                    {
+                        settings.PromptForNumberOfPassengers(elevatorType.PassengerLimit);
+                        numberOfPassengers = settings.NumberOfPassengers;
+                    }
+                    else if (settings.ElevatorType is ElevatorTypes.DumbWaiter or ElevatorTypes.Freight or ElevatorTypes.Sidewalk)
+                    {
+                        settings.PromptForWeightOfGoods(elevatorType.WeightLimit);
+                        weightOfGoods = settings.WeightOfGoods;
+                    }
+
+                    settings.PromptForTargetFloor(maxFloors);
+
+                    Models.Elevator elevator = new Models.Elevator
+                    {
+                        Name = settings.ElevatorType.ToString(),
+                        CurrentFloor = settings.CurrentFloor,
+                        TargetFloor = settings.TargetFloor,
+                        Speed = speed,
+                        NumberOfPassengers = numberOfPassengers,
+                        WeightOfGoods = weightOfGoods
+                    };
+
+
                     elevatorType.CurrentFloor = elevator.CurrentFloor;
                     elevatorType.TargetFloor = elevator.TargetFloor;
                     elevatorType.Speed = elevator.Speed;
                     elevatorType.CurrentNumberOfPassengers = elevator.NumberOfPassengers;
                     elevatorType.CurrentWeightOfGoods = elevator.WeightOfGoods;
-                    
-                    await _elevatorControl.SimulateElevator(elevatorType);
+
+                    elevatorTypes.Add(elevatorType);
+                    if (elevatorTypes.Count() != maxElevators)
+                    {
+                        await _elevatorControl.SimulateElevator(elevatorType);
+                    }
+                    else
+                    {
+
+                    }
+
                 }
 
-                AnsiConsole.MarkupLine($"Press Any [green]Enter[/] to continue/[red] [Q] [/] to exit application.");
+                AnsiConsole.MarkupLine($"Press Any [green]Enter[/] to continue / [red] [[Q/q]] [/] to exit application.");
                 exitKey = Console.ReadKey(false).Key;
                 //Exit Application    
             } while (exitKey != ConsoleKey.Q);

@@ -53,9 +53,9 @@ namespace Building.Classes
         {
             if (CurrentWeightOfGoods == 0)
             {
-                return $"Elevator: {Type}, CurrentFloor: {currentFloor}, Direction: {direction}, State: {state}, Number Of Passengers: {currentNumberOfPassengers}";
+                return $"Elevator: {Type}, CurrentFloor: {CurrentFloor}, Direction: {Direction}, State: {State}, Number Of Passengers: {CurrentNumberOfPassengers}";
             }
-            return $"Elevator: {Type}, CurrentFloor: {currentFloor}, Direction: {direction}, State: {state}, Weight Of Goods: {currentWeightOfGoods}";
+            return $"Elevator: {Type}, CurrentFloor: {CurrentFloor}, Direction: {Direction}, State: {State}, Weight Of Goods: {CurrentWeightOfGoods}";
         } 
     }
 }

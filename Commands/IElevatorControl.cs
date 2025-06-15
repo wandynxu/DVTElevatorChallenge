@@ -5,8 +5,8 @@ namespace Building.Commands
     public interface IElevatorControl
     {
         Task SimulateElevator(ElevatorType elevatorType);
-        void SetDirection(string direction);
-        void SetStatus(string status);
+        void SetDirection(ElevatorType elevatorType);
+        void SetStatus(ElevatorType elevatorType);
         
     }
 }

@@ -71,28 +71,28 @@ namespace Building.ConsoleUI
                 }));
         }
 
-        public void PromptForNumberOfPassengers()
+        public void PromptForNumberOfPassengers(int passengerLimit)
         {
             NumberOfPassengers = AnsiConsole.Prompt(new TextPrompt<int>("Please Enter Number Of Passengers Waiting On Current Floor:")
                 .Validate(passengers =>
                 {
-                    if (passengers < 1)
+                    if (passengers > passengerLimit)
                     {
-                        return ValidationResult.Error("Number Of Passengers must be greater than 0.");
+                        return ValidationResult.Error($"Number Of Passengers must be less than {passengerLimit}.");
                     }
                     return ValidationResult.Success();
                 }));
 
         }
         
-        public void PromptForWeightOfGoods()
+        public void PromptForWeightOfGoods(double weightLimit)
         {
             WeightOfGoods = AnsiConsole.Prompt(new TextPrompt<double>("Please Enter Weight Of Goods:")
                 .Validate(goods =>
                 {
-                    if (goods < 1)
+                    if (goods > weightLimit)
                     {
-                        return ValidationResult.Error("Weight Of Goods must be greater than 0.");
+                        return ValidationResult.Error($"Weight Of Goods must be less than {weightLimit} Kgs.");
                     }
                     return ValidationResult.Success();
                 }));
@@ -105,7 +105,7 @@ namespace Building.ConsoleUI
                 {
                     if (floor > maxFloors)
                     {
-                        return ValidationResult.Error($"Floor number must be greater than {maxFloors}.");
+                        return ValidationResult.Error($"Floor number must be less than {maxFloors}.");
                     }
                     return ValidationResult.Success();
                 }));
