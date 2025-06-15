@@ -7,11 +7,10 @@ namespace Building.Classes.Concretes.Elevators
     ///</summary>
     public sealed class Freight : ElevatorType
     {
-        private string _state = ElevatorStates.Stop.ToString();
-        private string _speed = ElevatorSpeeds.Slow.ToString();
-        private int _passengerLimit = 0;
-        private double _weightLimit = 141.74;
-        private int _numberOfElevators = (int)ElevatorTypes.Freight;
+        
+        private const int _passengerLimit = 0;
+        private const double _weightLimit = 141.74;
+        private const int _numberOfElevators = (int)ElevatorTypes.Freight;
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Roof };
   
         public Freight(string id) : base(type: "Freight", id)
@@ -19,12 +18,16 @@ namespace Building.Classes.Concretes.Elevators
             
         }
         
-        public override int NumberOfElevators { get => _numberOfElevators; init => _numberOfElevators = value; }
-        public override int PassengerLimit { get => _passengerLimit; init => _passengerLimit = value; }
-        public override double WeightLimit { get => _weightLimit; init => _weightLimit = value;}
-        public override List<int> FloorsServed { get => _floorsServed; init => _floorsServed = value; }
+        public override int NumberOfElevators { get => _numberOfElevators; }
+        public override int PassengerLimit { get => _passengerLimit; }
+        public override double WeightLimit { get => _weightLimit;  }
+        public override IReadOnlyList<int> FloorsServed { get => _floorsServed; }
 
-        public override string Speed { get => _speed; set => _speed = value; }
-        public override string State { get => _state; set => _state = value; }
+        public override string Speed { get => Speed; set => speed = value; }
+        public override string State { get => State; set => state = value; }
+        public override int CurrentFloor { get => CurrentFloor; set => currentFloor = value; }
+        public override int CurrentNumberOfPassengers { get => CurrentNumberOfPassengers; set => currentNumberOfPassengers = value; }
+        public override double CurrentWeightOfGoods { get => CurrentWeightOfGoods; set => currentWeightOfGoods = value; }
+        public override string Direction { get => Direction; set => direction = value; }
     }
 }

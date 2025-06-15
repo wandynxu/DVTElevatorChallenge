@@ -9,7 +9,7 @@ namespace Elevator.Classes
         /// <summary>
         /// Number of elevators in the building.
         /// </summary>
-        public const int maxElevators = 11;
+        public const int maxElevators = 9;
         
     }
 }

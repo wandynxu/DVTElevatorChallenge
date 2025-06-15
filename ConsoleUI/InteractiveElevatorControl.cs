@@ -67,9 +67,12 @@ namespace Building.ConsoleUI
                     ElevatorTypes.Sidewalk => new Sidewalk(elevator.Id),
                     _ => null
                 };
-                
+
                 if (elevatorType is not null)
+                { 
                     await _elevatorControl.SimulateElevator(elevatorType, elevator);
+                }
+                    
                  
                 exitKey = Console.ReadKey(false).Key;
                 //Exit Application    

@@ -7,7 +7,7 @@ namespace Building.ConsoleUI
     public sealed class InteractiveElevatorControlSettings : CommandSettings
     {
         public ElevatorTypes ElevatorType { get; private set; }
-        public ElevatorSpeeds ElevatorSpeed { get; private set; }
+        public ElevatorSpeed ElevatorSpeed { get; private set; }
 
         public int CurrentFloor { get; private set; }
         public int TargetFloor { get; private set; }
@@ -19,6 +19,8 @@ namespace Building.ConsoleUI
                                                     .Title("Please Select Elevator Type:")
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
                                                     .AddChoices(Enum.GetValues(typeof(ElevatorTypes)).Cast<ElevatorTypes>()));
+            
+                                                    
             switch (ElevatorType)
             {
                 case ElevatorTypes.Passenger:
@@ -48,12 +50,12 @@ namespace Building.ConsoleUI
         public void PromptForElevatorSpeed(string elevatorType)
         {
 
-            ElevatorSpeed = AnsiConsole.Prompt(new SelectionPrompt<ElevatorSpeeds>()
+            ElevatorSpeed = AnsiConsole.Prompt(new SelectionPrompt<ElevatorSpeed>()
                                                     .Title($"Please Select Elevator Speed -> {elevatorType}:")
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
-                                                    .AddChoices(Enum.GetValues(typeof(ElevatorSpeeds)).Cast<ElevatorSpeeds>()));
+                                                    .AddChoices(Enum.GetValues(typeof(ElevatorSpeed)).Cast<ElevatorSpeed>()));
 
-            AnsiConsole.MarkupLine($"[blue]{ElevatorSpeed}[/] Speed -> [green]{elevatorType}[/] Elevator.");
+            AnsiConsole.MarkupLine($"[blue]{ElevatorSpeed} Speed [/] -> [green]{elevatorType}[/] Elevator.");
         }
 
         public void PromptForCurrentFloor()
