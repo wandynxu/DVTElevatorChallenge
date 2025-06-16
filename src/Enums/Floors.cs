@@ -14,7 +14,7 @@ namespace Building.Enums
         Ground,
         Restaurant,
         Offices,
-        Residential = 5,
-        Roof = 19
+        Residential,
+        Roof
     }
 }
