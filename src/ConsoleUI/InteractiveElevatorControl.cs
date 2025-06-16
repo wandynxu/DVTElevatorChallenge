@@ -44,8 +44,6 @@ namespace Building.ConsoleUI
                 if (elevatorType is not null)
                 {
                     elevatorTypes.Add(elevatorType);
-                    _elevatorControl.SetElevatorType(elevatorType);
-
                     if (settings.ElevatorType is Types.Passenger)
                     {
                         settings.PromptForElevatorSpeed(settings.ElevatorType.ToString());
@@ -84,15 +82,15 @@ namespace Building.ConsoleUI
                         NumberOfPassengers = numberOfPassengers,
                         WeightOfGoods = weightOfGoods
                     };
-
+                    
+                    _elevatorControl.SetElevatorType(elevatorType);
                     await Task.Run(() =>
                     {
                         _elevatorControl.SimulateElevator(requestElevator);
-                        Thread.Sleep(10000);
                     });
+                    AnsiConsole.MarkupLine($"Press Any [green]Enter[/] to continue / [red] [[Q/q]] [/] to exit application.");
                 }
-                
-                AnsiConsole.MarkupLine($"Press Any [green]Enter[/] to continue / [red] [[Q/q]] [/] to exit application.");
+                  
                 exitKey = Console.ReadKey(false).Key;
                 //Exit Application    
             } while (exitKey != ConsoleKey.Q);

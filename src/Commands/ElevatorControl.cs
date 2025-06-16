@@ -44,20 +44,20 @@ namespace Building.Commands
 
         private int ValidateRequest(Models.Elevator requestElevator)
         {
-            int elevatorPassengerLimit = _elevatorType.PassengerLimit;
-            double elevatorWeightLimit = _elevatorType.WeightLimit;
-
+            //int currNumberOfPassengers = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["numberOfPassengers"]));
+            //int currWeightOfGoods = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["weightOfGoods"]));
+            //Check If it's the same elevator
             //Check Passenger/Weight Limit
             if (requestElevator.NumberOfPassengers > 0)
             {
-                int currNumberOfPassengers = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["numberOfPassengers"]));
+                _elevatorType.CurrentNumberOfPassengers += requestElevator.NumberOfPassengers;
             }
             else if (requestElevator.WeightOfGoods > 0)
             {
-                int currWeightOfGoods = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["weightOfGoods"]));
+                _elevatorType.CurrentWeightOfGoods += requestElevator.WeightOfGoods;
             }
 
-            //await Move(targetFloor);
+            Move(requestElevator);
 
             return 0;
         }
@@ -75,8 +75,6 @@ namespace Building.Commands
                 _elevatorType.Direction = Direction.Down.ToString();
             }
             _elevatorType.CurrentFloor = requestElevator.TargetFloor;
-            _elevatorType.CurrentNumberOfPassengers = requestElevator.NumberOfPassengers;
-
             _elevatorType.State = State.InMotion.ToString();
         }
 
