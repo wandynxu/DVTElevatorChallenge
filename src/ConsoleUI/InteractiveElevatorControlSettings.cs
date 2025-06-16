@@ -1,4 +1,5 @@
 using Building.Enums;
+using Building.Enums.Elevator;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -6,8 +7,8 @@ namespace Building.ConsoleUI
 {
     public sealed class InteractiveElevatorControlSettings : CommandSettings
     {
-        public ElevatorTypes ElevatorType { get; private set; }
-        public ElevatorSpeed ElevatorSpeed { get; private set; }
+        public Types ElevatorType { get; private set; }
+        public Speed ElevatorSpeed { get; private set; }
 
         public int CurrentFloor { get; private set; }
         public int TargetFloor { get; private set; }
@@ -15,30 +16,30 @@ namespace Building.ConsoleUI
         public double WeightOfGoods { get; private set; }
         public void PromptForElevatorType()
         {
-            ElevatorType = AnsiConsole.Prompt(new SelectionPrompt<ElevatorTypes>()
+            ElevatorType = AnsiConsole.Prompt(new SelectionPrompt<Types>()
                                                     .Title("Please Request Elevator:")
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
-                                                    .AddChoices(Enum.GetValues(typeof(ElevatorTypes)).Cast<ElevatorTypes>()));
+                                                    .AddChoices(Enum.GetValues(typeof(Types)).Cast<Types>()));
             
                                                     
             switch (ElevatorType)
             {
-                case ElevatorTypes.Passenger:
+                case Types.Passenger:
                     AnsiConsole.MarkupLine($"You have selected a [green]{ElevatorType} Elevator.[/]");
                     break;
-                case ElevatorTypes.Sidewalk:
+                case Types.Sidewalk:
                     AnsiConsole.MarkupLine($"You have selected a [blue]{ElevatorType} Elevator.[/]");
                     break;
-                case ElevatorTypes.Service:
+                case Types.Service:
                     AnsiConsole.MarkupLine($"You have selected a [yellow]{ElevatorType} Elevator.[/]");
                     break;
-                case ElevatorTypes.Emergency:
+                case Types.Emergency:
                     AnsiConsole.MarkupLine($"You have selected a [red]{ElevatorType} Elevator.[/]");
                     break;
-                case ElevatorTypes.DumbWaiter:
+                case Types.DumbWaiter:
                     AnsiConsole.MarkupLine($"You have selected a [grey]{ElevatorType} Elevator.[/]");
                     break;
-                case ElevatorTypes.Freight:
+                case Types.Freight:
                     AnsiConsole.MarkupLine($"You have selected a [yellow]{ElevatorType} Elevator.[/]");
                     break;
                 default:
@@ -50,10 +51,10 @@ namespace Building.ConsoleUI
         public void PromptForElevatorSpeed(string elevatorType)
         {
 
-            ElevatorSpeed = AnsiConsole.Prompt(new SelectionPrompt<ElevatorSpeed>()
+            ElevatorSpeed = AnsiConsole.Prompt(new SelectionPrompt<Speed>()
                                                     .Title($"Please Select Elevator Speed -> {elevatorType}:")
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
-                                                    .AddChoices(Enum.GetValues(typeof(ElevatorSpeed)).Cast<ElevatorSpeed>()));
+                                                    .AddChoices(Enum.GetValues(typeof(Speed)).Cast<Speed>()));
             
             AnsiConsole.MarkupLine($"[blue]{ElevatorSpeed} Speed [/] -> [green]{elevatorType} Elevator[/].");
         }

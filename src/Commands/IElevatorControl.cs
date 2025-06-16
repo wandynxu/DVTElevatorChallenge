@@ -6,7 +6,7 @@ namespace Building.Commands
     {
         void SetElevatorType(ElevatorType elevatorType);
 
-        Task SimulateElevator(Models.Elevator requestElevator);
+        int SimulateElevator(Models.Elevator requestElevator);
         
     }
 }

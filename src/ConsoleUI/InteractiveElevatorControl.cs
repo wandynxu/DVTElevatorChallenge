@@ -85,11 +85,13 @@ namespace Building.ConsoleUI
                         WeightOfGoods = weightOfGoods
                     };
 
-                    
-                    await _elevatorControl.SimulateElevator(requestElevator);
-
+                    await Task.Run(() =>
+                    {
+                        _elevatorControl.SimulateElevator(requestElevator);
+                        Thread.Sleep(10000);
+                    });
                 }
-
+                
                 AnsiConsole.MarkupLine($"Press Any [green]Enter[/] to continue / [red] [[Q/q]] [/] to exit application.");
                 exitKey = Console.ReadKey(false).Key;
                 //Exit Application    

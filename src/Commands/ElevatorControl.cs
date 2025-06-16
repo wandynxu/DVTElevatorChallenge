@@ -20,12 +20,12 @@ namespace Building.Commands
             _elevatorType = elevatorType;
         }
 
-        public async Task SimulateElevator(Models.Elevator requestElevator)
+        public int SimulateElevator(Models.Elevator requestElevator)
         {
 
             //Request Elevator
             Console.WriteLine($"Requesting Elevator:{_elevatorType.Type} -> {_elevatorType.Id}");
-            
+
             requests.Add(new Dictionary<string, object>
             {
                 {"id", _elevatorType.Id },
@@ -35,20 +35,34 @@ namespace Building.Commands
                 {"numberOfPassengers", requestElevator.NumberOfPassengers},
                 {"weightOfGoods", requestElevator.WeightOfGoods},
             });
-            
-            await ValidateRequest(requestElevator);
+
+            int outcome = ValidateRequest(requestElevator);
 
             Console.WriteLine(_elevatorType);
+            return 0;
         }
-          
-        private async Task ValidateRequest(Models.Elevator requestElevator)
+
+        private int ValidateRequest(Models.Elevator requestElevator)
         {
+            int elevatorPassengerLimit = _elevatorType.PassengerLimit;
+            double elevatorWeightLimit = _elevatorType.WeightLimit;
 
-            //var eligibleToRequest = requests.Where(x => _elevatorType.Id ) 
+            //Check Passenger/Weight Limit
+            if (requestElevator.NumberOfPassengers > 0)
+            {
+                int currNumberOfPassengers = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["numberOfPassengers"]));
+            }
+            else if (requestElevator.WeightOfGoods > 0)
+            {
+                int currWeightOfGoods = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["weightOfGoods"]));
+            }
+
             //await Move(targetFloor);
+
+            return 0;
         }
 
-        private async Task Move(Models.Elevator requestElevator)
+        private void Move(Models.Elevator requestElevator)
         {
             if (requestElevator.CurrentFloor > _elevatorType.CurrentFloor)
             {
@@ -61,6 +75,7 @@ namespace Building.Commands
                 _elevatorType.Direction = Direction.Down.ToString();
             }
             _elevatorType.CurrentFloor = requestElevator.TargetFloor;
+            _elevatorType.CurrentNumberOfPassengers = requestElevator.NumberOfPassengers;
 
             _elevatorType.State = State.InMotion.ToString();
         }

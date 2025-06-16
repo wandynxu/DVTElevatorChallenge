@@ -10,7 +10,7 @@ namespace Building.Models
         public required string Name { get; set; }
         public int CurrentFloor { get; set; }
         public int TargetFloor { get; set; }
-        public string? Speed { get; set; } = ElevatorSpeed.Normal.ToString();
+        public string? Speed { get; set; } = Enums.Elevator.Speed.Normal.ToString();
         ///<summary>
         /// Number of passengers carrying.
         ///</summary>
