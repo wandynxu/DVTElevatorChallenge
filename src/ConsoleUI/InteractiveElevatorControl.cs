@@ -84,13 +84,10 @@ namespace Building.ConsoleUI
                     };
                     
                     _elevatorControl.SetElevatorType(elevatorType);
-                    await Task.Run(() =>
-                    {
-                        _elevatorControl.SimulateElevator(requestElevator);
-                    });
-                    AnsiConsole.MarkupLine($"Press Any [green]Enter[/] to continue / [red] [[Q/q]] [/] to exit application.");
+                    _elevatorControl.SimulateElevator(requestElevator);
                 }
-                  
+
+                AnsiConsole.MarkupLine($"Press [green]Enter[/] to continue/[red][[Q/q]][/] to exit application.");  
                 exitKey = Console.ReadKey(false).Key;
                 //Exit Application    
             } while (exitKey != ConsoleKey.Q);

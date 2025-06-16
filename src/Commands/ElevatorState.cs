@@ -5,7 +5,7 @@ namespace Building.Commands
         
         public void Stop()
         {
-            Console.WriteLine("Elevator Stopped.");
+            Console.WriteLine("Target Floor Reached.");
         }
         public void OpenDoor()
         {

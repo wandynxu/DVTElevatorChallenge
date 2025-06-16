@@ -36,18 +36,20 @@ namespace Building.Commands
                 {"weightOfGoods", requestElevator.WeightOfGoods},
             });
 
-            int outcome = ValidateRequest(requestElevator);
-
-            Console.WriteLine(_elevatorType);
+            int outcome = 0;
+            Task.Run(() =>
+            {
+                outcome = ValidateRequest(requestElevator);
+                Console.WriteLine(_elevatorType);
+                Thread.Sleep(15000);
+                Stop();
+            });
             return 0;
         }
 
         private int ValidateRequest(Models.Elevator requestElevator)
         {
-            //int currNumberOfPassengers = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["numberOfPassengers"]));
-            //int currWeightOfGoods = requests.Where(x => x.ContainsKey("id") && x["id"]?.ToString() == _elevatorType.Id).Sum(x => Convert.ToInt32(x["weightOfGoods"]));
-            //Check If it's the same elevator
-            //Check Passenger/Weight Limit
+
             if (requestElevator.NumberOfPassengers > 0)
             {
                 _elevatorType.CurrentNumberOfPassengers += requestElevator.NumberOfPassengers;
@@ -80,8 +82,9 @@ namespace Building.Commands
 
         private void Stop()
         {
-
             _elevatorType.State = State.Stationary.ToString();
+            _elevatorState.Stop();
+            _elevatorState.OpenDoor();
         }
 
 
