@@ -2,7 +2,7 @@ name: DVT Elevator Challenge
 
 on:
   pull_request:
-    branches: ["develop"]
+    branches: ["develop", "release/**"]
     
 jobs:
 
