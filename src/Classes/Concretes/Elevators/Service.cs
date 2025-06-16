@@ -22,12 +22,12 @@ namespace Building.Classes.Concretes.Elevators
         public override double WeightLimit { get => _weightLimit; }
         public override IReadOnlyList<int> FloorsServed { get => _floorsServed; }
 
-        public override string Speed { get => Speed; set => speed = value; }
-        public override string State { get => State; set => state = value; }
-        public override int CurrentFloor { get => CurrentFloor; set => currentFloor = value; }
-        public override int CurrentNumberOfPassengers { get => CurrentNumberOfPassengers; set => currentNumberOfPassengers = value; }
-        public override double CurrentWeightOfGoods { get => CurrentWeightOfGoods; set => currentWeightOfGoods = value; }
-        public override string Direction { get => Direction; set => direction = value; }
+        public override string Speed { get => speed ?? string.Empty; set => speed = value; }
+        public override string State { get => state ?? string.Empty; set => state = value; }
+        public override int CurrentFloor { get => currentFloor; set => currentFloor = value; }
+        public override int CurrentNumberOfPassengers { get => currentNumberOfPassengers; set => currentNumberOfPassengers = value; }
+        public override double CurrentWeightOfGoods { get => currentWeightOfGoods; set => currentWeightOfGoods = value; }
+        public override string Direction { get => direction ?? string.Empty; set => direction = value; }
         
     }
 }

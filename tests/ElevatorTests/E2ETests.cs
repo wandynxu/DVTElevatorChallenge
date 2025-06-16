@@ -1,7 +1,7 @@
 
 namespace ElevatorTests;
 
-public class UnitTest1
+public class E2ETests
 {
     [Fact]
     public void Test1()
