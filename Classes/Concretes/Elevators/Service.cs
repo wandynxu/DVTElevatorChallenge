@@ -28,6 +28,6 @@ namespace Building.Classes.Concretes.Elevators
         public override int CurrentNumberOfPassengers { get => CurrentNumberOfPassengers; set => currentNumberOfPassengers = value; }
         public override double CurrentWeightOfGoods { get => CurrentWeightOfGoods; set => currentWeightOfGoods = value; }
         public override string Direction { get => Direction; set => direction = value; }
-        public override int TargetFloor { get => TargetFloor; set => targetFloor =  value; }
+        
     }
 }

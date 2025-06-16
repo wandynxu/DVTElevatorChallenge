@@ -1,14 +1,14 @@
+
 namespace Building.Classes
 {
     public abstract class ElevatorType
     {
-        protected int currentFloor;
-        protected int targetFloor;
-        protected int currentNumberOfPassengers;
-        protected double currentWeightOfGoods;
-        protected string? speed;
-        protected string? direction;
-        protected string? state;
+        protected int currentFloor = 0;
+        protected int currentNumberOfPassengers = 0;
+        protected double currentWeightOfGoods = 0.0;
+        protected string? speed = Enums.Elevator.Speed.Normal.ToString();
+        protected string? direction = Enums.Elevator.Direction.Idle.ToString();
+        protected string? state = Enums.Elevator.State.Stationary.ToString();
 
         internal ElevatorType(string type, string id)
         {
@@ -42,7 +42,6 @@ namespace Building.Classes
         public abstract IReadOnlyList<int> FloorsServed { get; }
 
         public abstract int CurrentFloor { get; set; }
-        public abstract int TargetFloor { get; set; }
         public abstract int CurrentNumberOfPassengers { get; set; }
         public abstract double CurrentWeightOfGoods { get; set; }
         public abstract string Speed { get; set; }

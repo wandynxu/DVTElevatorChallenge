@@ -29,6 +29,6 @@ namespace Building.Classes.Concretes.Elevators
         public override string State { get => state ?? string.Empty; set => state = value; }
         public override int CurrentFloor { get => currentFloor; set => currentFloor = value; }
         public override string Direction { get => direction ?? string.Empty; set => direction = value; }
-        public override int TargetFloor { get => targetFloor; set => targetFloor =  value; }
+        
     }    
 }

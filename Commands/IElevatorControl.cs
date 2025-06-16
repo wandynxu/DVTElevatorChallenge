@@ -4,7 +4,9 @@ namespace Building.Commands
 {
     public interface IElevatorControl
     {
-        Task SimulateElevator(ElevatorType elevatorType);
+        void SetElevatorType(ElevatorType elevatorType);
+
+        Task SimulateElevator(Models.Elevator requestElevator);
         
     }
 }

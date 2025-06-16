@@ -10,7 +10,7 @@ namespace Building.Classes.Concretes.Elevators
 
         private const int _passengerLimit = 0;
         private const double _weightLimit = 85.4;
-        private const int _numberOfElevators = (int)ElevatorTypes.Sidewalk;
+        private const int _numberOfElevators = 1;
         private List<int> _floorsServed = new List<int> { (int)Floors.Basement, (int)Floors.Ground };
 
         public Sidewalk(string id) : base(type: "Sidewalk", id)
@@ -29,6 +29,6 @@ namespace Building.Classes.Concretes.Elevators
         public override int CurrentNumberOfPassengers { get => currentNumberOfPassengers; set => currentNumberOfPassengers = value; }
         public override double CurrentWeightOfGoods { get => currentWeightOfGoods; set => currentWeightOfGoods = value; }
         public override string Direction { get => direction ?? string.Empty; set => direction = value; }
-        public override int TargetFloor { get => targetFloor; set => targetFloor =  value; }
+       
     }
 }

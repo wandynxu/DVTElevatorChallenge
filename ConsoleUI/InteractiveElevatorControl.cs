@@ -1,5 +1,5 @@
 using Building.Classes.Concretes.Elevators;
-using Building.Enums;
+using Building.Enums.Elevator;
 using Spectre.Console.Cli;
 using Building.Classes;
 using Building.Commands;
@@ -32,39 +32,42 @@ namespace Building.ConsoleUI
                 ElevatorType? elevatorType = settings.ElevatorType switch
                 {
 
-                    ElevatorTypes.Passenger => new Passenger(elevatorId),
-                    ElevatorTypes.DumbWaiter => new DumbWaiter(elevatorId),
-                    ElevatorTypes.Emergency => new Emergency(elevatorId),
-                    ElevatorTypes.Freight => new Freight(elevatorId),
-                    ElevatorTypes.Service => new Service(elevatorId),
-                    ElevatorTypes.Sidewalk => new Sidewalk(elevatorId),
+                    Types.Passenger => new Passenger(elevatorId),
+                    Types.DumbWaiter => new DumbWaiter(elevatorId),
+                    Types.Emergency => new Emergency(elevatorId),
+                    Types.Freight => new Freight(elevatorId),
+                    Types.Service => new Service(elevatorId),
+                    Types.Sidewalk => new Sidewalk(elevatorId),
                     _ => null
                 };
 
                 if (elevatorType is not null)
                 {
-                    if (settings.ElevatorType is ElevatorTypes.Passenger)
+                    elevatorTypes.Add(elevatorType);
+                    _elevatorControl.SetElevatorType(elevatorType);
+
+                    if (settings.ElevatorType is Types.Passenger)
                     {
                         settings.PromptForElevatorSpeed(settings.ElevatorType.ToString());
                         speed = settings.ElevatorSpeed.ToString();
                     }
-                    else if (settings.ElevatorType is ElevatorTypes.Emergency)
+                    else if (settings.ElevatorType is Types.Emergency)
                     {
-                        speed = ElevatorSpeed.Fast.ToString();
+                        speed = Speed.Fast.ToString();
                     }
-                    else if (settings.ElevatorType is ElevatorTypes.DumbWaiter)
+                    else if (settings.ElevatorType is Types.DumbWaiter)
                     {
-                        speed = ElevatorSpeed.Slow.ToString();
+                        speed = Speed.Slow.ToString();
                     }
 
                     settings.PromptForCurrentFloor();
 
-                    if (settings.ElevatorType is ElevatorTypes.Passenger or ElevatorTypes.Emergency or ElevatorTypes.Service)
+                    if (settings.ElevatorType is Types.Passenger or Types.Emergency or Types.Service)
                     {
                         settings.PromptForNumberOfPassengers(elevatorType.PassengerLimit);
                         numberOfPassengers = settings.NumberOfPassengers;
                     }
-                    else if (settings.ElevatorType is ElevatorTypes.DumbWaiter or ElevatorTypes.Freight or ElevatorTypes.Sidewalk)
+                    else if (settings.ElevatorType is Types.DumbWaiter or Types.Freight or Types.Sidewalk)
                     {
                         settings.PromptForWeightOfGoods(elevatorType.WeightLimit);
                         weightOfGoods = settings.WeightOfGoods;
@@ -72,7 +75,7 @@ namespace Building.ConsoleUI
 
                     settings.PromptForTargetFloor(maxFloors);
 
-                    Models.Elevator elevator = new Models.Elevator
+                    Models.Elevator requestElevator = new Models.Elevator
                     {
                         Name = settings.ElevatorType.ToString(),
                         CurrentFloor = settings.CurrentFloor,
@@ -82,22 +85,8 @@ namespace Building.ConsoleUI
                         WeightOfGoods = weightOfGoods
                     };
 
-
-                    elevatorType.CurrentFloor = elevator.CurrentFloor;
-                    elevatorType.TargetFloor = elevator.TargetFloor;
-                    elevatorType.Speed = elevator.Speed;
-                    elevatorType.CurrentNumberOfPassengers = elevator.NumberOfPassengers;
-                    elevatorType.CurrentWeightOfGoods = elevator.WeightOfGoods;
-
-                    elevatorTypes.Add(elevatorType);
-                    if (elevatorTypes.Count() != maxElevators)
-                    {
-                        await _elevatorControl.SimulateElevator(elevatorType);
-                    }
-                    else
-                    {
-
-                    }
+                    
+                    await _elevatorControl.SimulateElevator(requestElevator);
 
                 }
 

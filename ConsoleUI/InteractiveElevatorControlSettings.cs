@@ -16,7 +16,7 @@ namespace Building.ConsoleUI
         public void PromptForElevatorType()
         {
             ElevatorType = AnsiConsole.Prompt(new SelectionPrompt<ElevatorTypes>()
-                                                    .Title("Please Select Elevator Type:")
+                                                    .Title("Please Request Elevator:")
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
                                                     .AddChoices(Enum.GetValues(typeof(ElevatorTypes)).Cast<ElevatorTypes>()));
             
@@ -55,7 +55,7 @@ namespace Building.ConsoleUI
                                                     .MoreChoicesText("[grey](Move up and down)[/]")
                                                     .AddChoices(Enum.GetValues(typeof(ElevatorSpeed)).Cast<ElevatorSpeed>()));
             
-            AnsiConsole.MarkupLine($"[blue]{ElevatorSpeed} Speed [/] -> [green]{elevatorType}[/] Elevator.");
+            AnsiConsole.MarkupLine($"[blue]{ElevatorSpeed} Speed [/] -> [green]{elevatorType} Elevator[/].");
         }
 
         public void PromptForCurrentFloor()

@@ -17,14 +17,14 @@ namespace Building.Commands
             Console.WriteLine("Elevator Door Closing...");
         }
 
-        public void Up()
+        public void Up(int floor, int targetFloor)
         {
-            Console.WriteLine("Elevator Moving Up...");
+            Console.WriteLine($"Elevator Moving Up From Floor {floor} To Floor {targetFloor}...");
         }
 
-        public void Down()
+        public void Down(int floor, int targetFloor)
         {
-            Console.WriteLine("Elevator Moving Down...");
+            Console.WriteLine($"Elevator Moving Down From Floor {floor} To Floor {targetFloor}...");
         }
     }
 }

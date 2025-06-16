@@ -1,9 +1,9 @@
-namespace Building.Enums
+namespace Building.Enums.Elevator
 {
     ///<summary>
     /// Represents wait duration(in seconds).          
     ///</summary>
-    public enum ElevatorSpeed
+    public enum Speed
     {
         Fast,
         Normal,
